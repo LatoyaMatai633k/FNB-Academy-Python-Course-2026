@@ -1,0 +1,10 @@
+first_name = input("Whats is your name? ")
+surname = input("Surname? ")
+age = int(input("How old are you? "))
+favorite_number = float(input("Whats your favorite number? "))
+
+print(f"Welcome {first_name.title()} {surname.title()}!")
+print(first_name.upper())
+print(first_name.title())
+print(age * 12)
+print(f"{favorite_number:.2f}")
