@@ -20,7 +20,7 @@ def grade_classifier():
     else:
         print("Grade : F")
 
-    Report = f"{student_name}: your average grading is ({grades_average})"
+    Report = f"{student_name}: your average grading for {english} English, {maths} Maths, {biology} Biology is ({grades_average})"
     print(Report)
 
 grade_classifier()
