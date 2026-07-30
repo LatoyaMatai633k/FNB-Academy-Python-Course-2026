@@ -1,26 +1,110 @@
-def grade_classifier():
-    student_name = input("What is your name? ").title()
-    english = float(input("Enter your grades for English: "))
-    maths = float(input("Enter your grades for Maths: "))
-    biology = float(input("Enter your grades for Biology: "))
+# grade_report.py
 
-    grades_average = (english *0.4) + (maths *0.3) + (biology *0.3)
+students = [
+    {"name": "Yaya", "maths": 75, "english": 80, "science": 70},
+    {"name": "John", "maths": 65, "english": 72, "science": 68},
+    {"name": "Sarah", "maths": 90, "english": 85, "science": 88},
+    {"name": "Peter", "maths": 45, "english": 50, "science": 40},
+    {"name": "Thabo", "maths": 55, "english": 60, "science": 58}
+]
 
-    if maths < 40 and english < 40 and biology < 40:
-        print("You need to pull up your socks!")
-    
-    if grades_average >= 80:
-        print("Grade : A")
-    elif 70 <= grades_average <= 79:
-        print("Grade : B")
-    elif 60 <= grades_average <= 69:
-        print("Grade : C")
-    elif 50 <= grades_average <= 59:
-        print("Grade : D")
+
+results = []
+
+
+# Go through each student
+for student in students:
+
+    average = (
+        student["maths"] +
+        student["english"] +
+        student["science"]
+    ) / 3
+
+    # Grade
+    if average >= 80:
+        grade = "A"
+    elif average >= 70:
+        grade = "B"
+    elif average >= 60:
+        grade = "C"
+    elif average >= 50:
+        grade = "D"
     else:
-        print("Grade : F")
+        grade = "F"
 
-    Report = f"{student_name}: your average grading for {english} English, {maths} Maths, {biology} Biology is ({grades_average})"
-    print(Report)
+    # Status
+    if average >= 50:
+        status = "Pass"
+    else:
+        status = "Fail"
 
-grade_classifier()
+    # Add the result to the results list
+    results.append({
+        "name": student["name"],
+        "average": average,
+        "grade": grade,
+        "status": status
+    })
+
+
+# Calculate class statistics
+total = 0
+highest = 0
+lowest = 100
+
+for result in results:
+    total = total + result["average"]
+
+    if result["average"] > highest:
+        highest = result["average"]
+
+    if result["average"] < lowest:
+        lowest = result["average"]
+
+
+class_average = total / len(results)
+
+
+# Display report
+print("\n========== CLASS REPORT ==========")
+
+for result in results:
+    print(f"Name: {result['name']}")
+    print(f"Average: {result['average']:.2f}")
+    print(f"Grade: {result['grade']}")
+    print(f"Status: {result['status']}")
+    print("---------------------------------")
+
+
+print(f"Class Average: {class_average:.2f}")
+print(f"Highest Average: {highest:.2f}")
+print(f"Lowest Average: {lowest:.2f}")
+
+
+# Search for a student
+while True:
+
+    search_name = input(
+        "\nEnter a student name to search, or type 'stop': "
+    ).title()
+
+    if search_name.lower() == "stop":
+        print("Goodbye!")
+        break
+
+    found = False
+
+    for result in results:
+        if result["name"] == search_name:
+            print("\nStudent Found!")
+            print(f"Name: {result['name']}")
+            print(f"Average: {result['average']:.2f}")
+            print(f"Grade: {result['grade']}")
+            print(f"Status: {result['status']}")
+
+            found = True
+            break
+
+    if not found:
+        print("Student not found.")
